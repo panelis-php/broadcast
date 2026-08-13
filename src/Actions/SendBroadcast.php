@@ -6,13 +6,16 @@ namespace Panelis\Broadcast\Actions;
 
 use Illuminate\Database\Eloquent\Builder;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Panelis\Broadcast\Enums\BroadcastChannel;
 use Panelis\Broadcast\Enums\BroadcastStatus;
+use Panelis\Broadcast\Enums\BroadcastSubscriptionStatus;
 use Panelis\Broadcast\Models\Broadcast;
+use Panelis\Broadcast\Models\BroadcastUser;
 use Panelis\Broadcast\Notifications\BroadcastNotification;
 
 /**
- * Mengirim broadcast ke user terpilih dan/atau seluruh user pada role
- * terpilih (atau semua user jika tidak ada penerima), lalu menandai terkirim.
+ * Send a broadcast to selected users and/or all users on the selected roles
+ * (or to all users when there are no recipients), then mark it as sent.
  */
 class SendBroadcast
 {
@@ -24,8 +27,8 @@ class SendBroadcast
             return;
         }
 
-        // Ambil langsung dari query relasi agar tidak memakai relasi yang
-        // sudah ter-cache (mis. setelah roles()/users()->sync()).
+        // Resolve recipients straight from the relationship queries so we do not
+        // use already-cached relations (e.g. after roles()/users()->sync()).
         $roleIds = $broadcast->roles()->allRelatedIds()->all();
         $userIds = $broadcast->users()->allRelatedIds()->all();
 
@@ -50,6 +53,15 @@ class SendBroadcast
 
         $query->chunk(200, function ($users) use ($broadcast): void {
             foreach ($users as $user) {
+                // Ensure a subscription row exists for every broadcast channel.
+                // If missing, create one with the default subscribed status.
+                foreach ($broadcast->channels ?: [BroadcastChannel::Database->value] as $channel) {
+                    BroadcastUser::query()->firstOrCreate(
+                        ['user_id' => $user->getKey(), 'channel' => $channel],
+                        ['status' => BroadcastSubscriptionStatus::Subscribed->value],
+                    );
+                }
+
                 $user->notify(new BroadcastNotification($broadcast));
             }
         });

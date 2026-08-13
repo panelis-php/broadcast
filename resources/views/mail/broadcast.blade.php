@@ -8,4 +8,9 @@
     {{ $broadcast->label ?: __('broadcast::broadcast.open') }}
 </x-mail::button>
 @endif
+
+@if (! empty($unsubscribeUrl))
+---
+[{{ __('broadcast::broadcast.unsubscribe') }}]({{ $unsubscribeUrl }})
+@endif
 </x-mail::message>

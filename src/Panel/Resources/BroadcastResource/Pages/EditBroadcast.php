@@ -36,8 +36,8 @@ class EditBroadcast extends EditRecord
     }
 
     /**
-     * Matikan notifikasi "saved" bawaan Filament agar tidak dobel
-     * dengan notifikasi sukses kirim/simpan di afterSave().
+     * Disable Filament's default "saved" notification to avoid duplicates
+     * with the success/save notification sent in afterSave().
      */
     protected function getSavedNotification(): ?Notification
     {

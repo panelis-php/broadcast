@@ -6,6 +6,12 @@ return [
     'all_users' => 'Semua pengguna',
     'now' => 'Sekarang',
     'open' => 'Buka',
+    'unsubscribe' => 'Berhenti berlangganan pos-el ini',
+
+    'unsubscribed' => [
+        'title' => 'Kamu sudah berhenti berlangganan',
+        'message' => 'Kamu tidak akan menerima siaran pos-el lagi.',
+    ],
 
     'actions' => [
         'send' => 'Kirim',
@@ -33,7 +39,7 @@ return [
         'url' => 'URL',
         'url_helper' => 'Opsional. Menambahkan tombol aksi di bawah konten notifikasi.',
         'label' => 'Label tombol',
-        'label_helper' => 'Opsional. Teks tombol aksi, misal \"Baca selengkapnya\".',
+        'label_helper' => 'Opsional. Teks tombol aksi, misal "Baca selengkapnya".',
         'label_placeholder' => 'Baca selengkapnya',
         'save_as_draft' => 'Simpan sebagai draf',
         'send_now' => 'Kirim sekarang',
@@ -50,7 +56,7 @@ return [
 
     'channel' => [
         'database' => 'Database',
-        'mail' => 'Email',
+        'mail' => 'Pos-el',
     ],
 
     'column' => [

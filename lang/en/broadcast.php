@@ -6,6 +6,12 @@ return [
     'all_users' => 'All users',
     'now' => 'Now',
     'open' => 'Open',
+    'unsubscribe' => 'Unsubscribe from these emails',
+
+    'unsubscribed' => [
+        'title' => 'You have been unsubscribed',
+        'message' => 'You will no longer receive broadcast emails.',
+    ],
 
     'actions' => [
         'send' => 'Send',
@@ -33,7 +39,7 @@ return [
         'url' => 'URL',
         'url_helper' => 'Optional. Adds an action button under the notification content.',
         'label' => 'Button label',
-        'label_helper' => 'Optional. Text of the action button, e.g. \"Read more\".',
+        'label_helper' => 'Optional. Text of the action button, e.g. "Read more".',
         'label_placeholder' => 'Read more',
         'save_as_draft' => 'Save as draft',
         'send_now' => 'Send now',

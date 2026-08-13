@@ -9,8 +9,8 @@ use Panelis\Broadcast\Actions\SendBroadcast;
 use Panelis\Broadcast\Models\Broadcast;
 
 /**
- * Mengirim broadcast yang sudah jatuh tempo.
- * Didaftarkan di scheduler aplikasi utama (mis. setiap menit).
+ * Send broadcasts that are due.
+ * Registered in the host application scheduler (e.g. every minute).
  */
 class SendScheduledBroadcasts extends Command
 {
@@ -24,7 +24,7 @@ class SendScheduledBroadcasts extends Command
             ->pending()
             ->whereNotNull('send_at')
             ->where('send_at', '<=', now())
-            ->each(fn(Broadcast $broadcast) => SendBroadcast::run($broadcast));
+            ->each(fn (Broadcast $broadcast) => SendBroadcast::run($broadcast));
 
         return self::SUCCESS;
     }

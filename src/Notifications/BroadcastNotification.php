@@ -6,14 +6,16 @@ namespace Panelis\Broadcast\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\URL;
 use Panelis\Broadcast\Enums\BroadcastChannel;
 use Panelis\Broadcast\Models\Broadcast;
 
 /**
- * Notifikasi broadcast yang dikirim ke penerima lewat kanal
- * database (bell notifikasi) dan/atau mail.
+ * Broadcast notification sent to recipients via the
+ * database (notification bell) and/or mail channels.
  */
 class BroadcastNotification extends Notification implements ShouldQueue
 {
@@ -28,9 +30,27 @@ class BroadcastNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        $channels = $this->broadcast->channels ?: [BroadcastChannel::Database->value];
+        $channels = array_values(array_intersect(
+            ['mail', 'database'],
+            $this->broadcast->channels ?: [BroadcastChannel::Database->value],
+        ));
 
-        return array_values(array_intersect(['mail', 'database'], $channels));
+        return array_values(array_filter(
+            $channels,
+            fn (string $channel): bool => $this->isSubscribed($notifiable, $channel),
+        ));
+    }
+
+    /**
+     * Users without any subscription record are considered subscribed by default.
+     */
+    private function isSubscribed(object $notifiable, string $channel): bool
+    {
+        if (! $notifiable instanceof Model) {
+            return true;
+        }
+
+        return broadcast_is_subscribed($channel, $notifiable);
     }
 
     public function toMail(object $notifiable): MailMessage
@@ -39,6 +59,9 @@ class BroadcastNotification extends Notification implements ShouldQueue
             ->subject($this->broadcast->title)
             ->markdown('broadcast::mail.broadcast', [
                 'broadcast' => $this->broadcast,
+                'unsubscribeUrl' => URL::signedRoute('broadcast.unsubscribe', [
+                    'user' => $notifiable->getKey(),
+                ]),
             ]);
     }
 
