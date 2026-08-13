@@ -6,7 +6,7 @@ Broadcast notifications (database & mail) to users by role for [Panelis](https:/
 
 - **List broadcasts** — Filament table with the history of what was sent.
 - **New broadcast** — send a notification (database bell / email) to users by role, or everyone.
-- No edit / delete — create once, keep a clean history.
+- **Edit / delete drafts** — broadcasts still in `draft` status can be edited or deleted; once scheduled or sent they are locked.
 
 ## Form fields
 

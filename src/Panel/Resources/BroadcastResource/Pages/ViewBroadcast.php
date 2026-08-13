@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Panelis\Broadcast\Panel\Resources\BroadcastResource\Pages;
 
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
@@ -24,6 +26,17 @@ class ViewBroadcast extends ViewRecord
     public function authorizeAccess(): void
     {
         abort_unless(user_can(BroadcastPermission::Browse), Response::HTTP_FORBIDDEN);
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            EditAction::make()
+                ->visible(fn (): bool => $this->record->isDraft() && user_can(BroadcastPermission::Edit)),
+
+            DeleteAction::make()
+                ->visible(fn (): bool => $this->record->isDraft() && user_can(BroadcastPermission::Delete)),
+        ];
     }
 
     public function infolist(Schema $schema): Schema
