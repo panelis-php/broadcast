@@ -70,6 +70,7 @@ class BroadcastResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->recordUrl(fn (Broadcast $record): string => ViewBroadcast::getUrl([$record->id]))
+            ->stackedOnMobile()
             ->columns([
                 TextColumn::make('title')
                     ->label(__('broadcast::broadcast.column.title'))
