@@ -6,6 +6,12 @@ return [
     'all_users' => 'Semua pengguna',
     'now' => 'Sekarang',
     'open' => 'Buka',
+    'unsubscribe' => 'Berhenti berlangganan pos-el ini',
+
+    'unsubscribed' => [
+        'title' => 'Kamu sudah berhenti berlangganan',
+        'message' => 'Kamu tidak akan menerima siaran pos-el lagi.',
+    ],
 
     'actions' => [
         'send' => 'Kirim',
@@ -50,7 +56,7 @@ return [
 
     'channel' => [
         'database' => 'Database',
-        'mail' => 'Email',
+        'mail' => 'Pos-el',
     ],
 
     'column' => [

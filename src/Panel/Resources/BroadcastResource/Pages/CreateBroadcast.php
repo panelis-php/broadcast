@@ -25,8 +25,8 @@ class CreateBroadcast extends CreateRecord
     }
 
     /**
-     * Matikan notifikasi "created" bawaan Filament agar tidak dobel
-     * dengan notifikasi sukses kirim/simpan di afterCreate().
+     * Disable Filament's default "created" notification to avoid duplicates
+     * with the success/save notification sent in afterCreate().
      */
     protected function getCreatedNotification(): ?Notification
     {

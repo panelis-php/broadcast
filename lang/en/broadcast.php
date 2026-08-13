@@ -6,6 +6,12 @@ return [
     'all_users' => 'All users',
     'now' => 'Now',
     'open' => 'Open',
+    'unsubscribe' => 'Unsubscribe from these emails',
+
+    'unsubscribed' => [
+        'title' => 'You have been unsubscribed',
+        'message' => 'You will no longer receive broadcast emails.',
+    ],
 
     'actions' => [
         'send' => 'Send',

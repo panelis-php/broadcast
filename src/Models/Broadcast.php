@@ -62,7 +62,7 @@ class Broadcast extends Model
     }
 
     /**
-     * Role penerima siaran (many-to-many via tabel broadcast_recipients).
+     * Recipient roles of the broadcast (many-to-many via broadcast_recipients).
      */
     public function roles(): BelongsToMany
     {
@@ -73,7 +73,7 @@ class Broadcast extends Model
     }
 
     /**
-     * User penerima siaran (many-to-many via tabel broadcast_recipients).
+     * Recipient users of the broadcast (many-to-many via broadcast_recipients).
      */
     public function users(): BelongsToMany
     {
@@ -84,7 +84,7 @@ class Broadcast extends Model
     }
 
     /**
-     * Draf: tersimpan, belum dijadwalkan maupun dikirim.
+     * Draft: saved, not yet scheduled or sent.
      */
     public function isDraft(): bool
     {
@@ -92,7 +92,7 @@ class Broadcast extends Model
     }
 
     /**
-     * Terjadwal di masa depan (belum dikirim).
+     * Scheduled in the future (not yet sent).
      */
     public function isScheduled(): bool
     {
@@ -107,7 +107,7 @@ class Broadcast extends Model
     }
 
     /**
-     * Broadcast yang dijadwalkan (diproses oleh scheduler).
+     * Broadcasts that are scheduled (processed by the scheduler).
      */
     public function scopePending(Builder $query): Builder
     {

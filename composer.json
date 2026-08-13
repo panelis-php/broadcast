@@ -19,7 +19,10 @@
             "Panelis\\Broadcast\\": "src/",
             "Panelis\\Broadcast\\Database\\Factories\\": "database/factories/",
             "Panelis\\Broadcast\\Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

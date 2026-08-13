@@ -13,7 +13,7 @@ use Panelis\Broadcast\Notifications\BroadcastNotification;
 use Spatie\Permission\Models\Role;
 
 /**
- * User dengan peran bawaan (mengikuti model user aplikasi host).
+ * User with the default role (following the host application's user model).
  */
 function createBroadcastUser(array $attributes = []): Model
 {
