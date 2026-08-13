@@ -43,7 +43,7 @@ class BroadcastNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, string|null>
      */
     public function toArray(object $notifiable): array
     {
@@ -51,6 +51,8 @@ class BroadcastNotification extends Notification implements ShouldQueue
             'title' => $this->broadcast->title,
             'body' => $this->broadcast->body,
             'type' => $this->broadcast->type->value,
+            'url' => $this->broadcast->url,
+            'label' => $this->broadcast->label,
         ];
     }
 }

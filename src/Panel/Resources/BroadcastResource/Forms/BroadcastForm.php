@@ -36,6 +36,21 @@ class BroadcastForm
                         ->label(__('broadcast::broadcast.form.body'))
                         ->required()
                         ->columnSpanFull(),
+
+                    TextInput::make('url')
+                        ->label(__('broadcast::broadcast.form.url'))
+                        ->helperText(__('broadcast::broadcast.form.url_helper'))
+                        ->url()
+                        ->nullable()
+                        ->maxLength(255)
+                        ->placeholder('https://…'),
+
+                    TextInput::make('label')
+                        ->label(__('broadcast::broadcast.form.label'))
+                        ->helperText(__('broadcast::broadcast.form.label_helper'))
+                        ->nullable()
+                        ->maxLength(255)
+                        ->placeholder(__('broadcast::broadcast.form.label_placeholder')),
                 ])
                 ->columns(2),
 

@@ -183,6 +183,8 @@ class BroadcastResource extends Resource
                         'body' => $record->body,
                         'type' => $record->type?->value ?? BroadcastType::Info->value,
                         'channels' => $record->channels ?: [BroadcastChannel::Database->value],
+                        'url' => $record->url,
+                        'label' => $record->label,
                         'roles' => $record->roles->modelKeys(),
                         'users' => $record->users->modelKeys(),
                     ])

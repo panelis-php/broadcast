@@ -76,6 +76,15 @@ class ViewBroadcast extends ViewRecord
                             ->badge()
                             ->formatStateUsing(fn (string $state): string => __("broadcast::broadcast.channel.{$state}")),
 
+                        TextEntry::make('url')
+                            ->label(__('broadcast::broadcast.form.url'))
+                            ->visible(fn (Broadcast $record): bool => filled($record->url))
+                            ->url(fn (Broadcast $record): string => $record->url, true),
+
+                        TextEntry::make('label')
+                            ->label(__('broadcast::broadcast.form.label'))
+                            ->visible(fn (Broadcast $record): bool => filled($record->label)),
+
                         TextEntry::make('roles')
                             ->label(__('broadcast::broadcast.column.roles'))
                             ->badge()

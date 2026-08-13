@@ -21,6 +21,8 @@ use Spatie\Permission\Models\Role;
  * @property BroadcastType $type
  * @property BroadcastStatus $status
  * @property array<int, string> $channels
+ * @property string|null $url
+ * @property string|null $label
  * @property Collection<int, Role> $roles
  * @property Collection<int, Model> $users
  * @property Carbon|null $send_at
@@ -41,6 +43,8 @@ class Broadcast extends Model
         'type',
         'status',
         'channels',
+        'url',
+        'label',
         'send_at',
         'sent_at',
         'created_by',
