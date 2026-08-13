@@ -5,6 +5,7 @@ return [
     'navigation' => 'Broadcast',
     'all_users' => 'All users',
     'now' => 'Now',
+    'open' => 'Open',
 
     'actions' => [
         'send' => 'Send',
@@ -29,6 +30,11 @@ return [
         'type' => 'Type',
         'channel' => 'Channel',
         'body' => 'Content',
+        'url' => 'URL',
+        'url_helper' => 'Optional. Adds an action button under the notification content.',
+        'label' => 'Button label',
+        'label_helper' => 'Optional. Text of the action button, e.g. \"Read more\".',
+        'label_placeholder' => 'Read more',
         'save_as_draft' => 'Save as draft',
         'send_now' => 'Send now',
         'send_at' => 'Send at',

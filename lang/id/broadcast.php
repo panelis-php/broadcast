@@ -5,6 +5,7 @@ return [
     'navigation' => 'Siaran',
     'all_users' => 'Semua pengguna',
     'now' => 'Sekarang',
+    'open' => 'Buka',
 
     'actions' => [
         'send' => 'Kirim',
@@ -29,6 +30,11 @@ return [
         'type' => 'Tipe',
         'channel' => 'Kanal',
         'body' => 'Isi',
+        'url' => 'URL',
+        'url_helper' => 'Opsional. Menambahkan tombol aksi di bawah konten notifikasi.',
+        'label' => 'Label tombol',
+        'label_helper' => 'Opsional. Teks tombol aksi, misal \"Baca selengkapnya\".',
+        'label_placeholder' => 'Baca selengkapnya',
         'save_as_draft' => 'Simpan sebagai draf',
         'send_now' => 'Kirim sekarang',
         'send_at' => 'Jadwalkan kirim',
