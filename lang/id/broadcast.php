@@ -33,7 +33,7 @@ return [
         'url' => 'URL',
         'url_helper' => 'Opsional. Menambahkan tombol aksi di bawah konten notifikasi.',
         'label' => 'Label tombol',
-        'label_helper' => 'Opsional. Teks tombol aksi, misal \"Baca selengkapnya\".',
+        'label_helper' => 'Opsional. Teks tombol aksi, misal "Baca selengkapnya".',
         'label_placeholder' => 'Baca selengkapnya',
         'save_as_draft' => 'Simpan sebagai draf',
         'send_now' => 'Kirim sekarang',

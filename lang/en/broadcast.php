@@ -33,7 +33,7 @@ return [
         'url' => 'URL',
         'url_helper' => 'Optional. Adds an action button under the notification content.',
         'label' => 'Button label',
-        'label_helper' => 'Optional. Text of the action button, e.g. \"Read more\".',
+        'label_helper' => 'Optional. Text of the action button, e.g. "Read more".',
         'label_placeholder' => 'Read more',
         'save_as_draft' => 'Save as draft',
         'send_now' => 'Send now',
