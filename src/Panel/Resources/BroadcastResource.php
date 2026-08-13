@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Panelis\Broadcast\Panel\Resources;
 
 use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Actions\ReplicateAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -24,6 +26,7 @@ use Panelis\Broadcast\Panel\Resources\BroadcastResource\Enums\BroadcastPermissio
 use Panelis\Broadcast\Panel\Resources\BroadcastResource\Forms\BroadcastForm;
 use Panelis\Broadcast\Panel\Resources\BroadcastResource\Forms\ResendForm;
 use Panelis\Broadcast\Panel\Resources\BroadcastResource\Pages\CreateBroadcast;
+use Panelis\Broadcast\Panel\Resources\BroadcastResource\Pages\EditBroadcast;
 use Panelis\Broadcast\Panel\Resources\BroadcastResource\Pages\ListBroadcasts;
 use Panelis\Broadcast\Panel\Resources\BroadcastResource\Pages\ViewBroadcast;
 
@@ -190,6 +193,12 @@ class BroadcastResource extends Resource
                     })
                     ->successNotificationTitle(__('broadcast::broadcast.notifications.resend.title'))
                     ->successNotificationMessage(__('broadcast::broadcast.notifications.resend.body')),
+
+                EditAction::make()
+                    ->visible(fn (Broadcast $record): bool => $record->isDraft() && user_can(BroadcastPermission::Edit)),
+
+                DeleteAction::make()
+                    ->visible(fn (Broadcast $record): bool => $record->isDraft() && user_can(BroadcastPermission::Delete)),
             ])
             ->paginated([10, 25, 50]);
     }
@@ -204,6 +213,7 @@ class BroadcastResource extends Resource
         return [
             'index' => ListBroadcasts::route('/'),
             'create' => CreateBroadcast::route('/create'),
+            'edit' => EditBroadcast::route('/{record}/edit'),
             'view' => ViewBroadcast::route('/{record}'),
         ];
     }

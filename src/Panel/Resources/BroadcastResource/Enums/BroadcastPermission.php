@@ -9,4 +9,8 @@ enum BroadcastPermission: string
     case Browse = 'BrowseBroadcast';
 
     case Create = 'CreateBroadcast';
+
+    case Edit = 'EditBroadcast';
+
+    case Delete = 'DeleteBroadcast';
 }
