@@ -6,7 +6,7 @@ Broadcast notifications (database & mail) to users by role for [Panelis](https:/
 
 - **List broadcasts** — Filament table with the history of what was sent.
 - **New broadcast** — send a notification (database bell / email) to users by role, or everyone.
-- **Edit / delete drafts** — broadcasts still in `draft` status can be edited or deleted; once scheduled or sent they are locked.
+- **Edit/delete pending broadcasts** — broadcasts in `draft` or `scheduled` status can be edited while they have not been sent; once sent they are locked.
 - **Email unsubscribe** — broadcast emails include an unsubscribe link (signed URL, no login required) that opts the user out of the `mail` channel. Users without any subscription record are considered subscribed by default.
 
 ## Email subscriptions
