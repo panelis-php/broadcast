@@ -24,7 +24,7 @@ class EditBroadcast extends EditRecord
     {
         abort_unless(user_can(BroadcastPermission::Edit), Response::HTTP_FORBIDDEN);
 
-        abort_unless($this->record->isDraft(), Response::HTTP_FORBIDDEN);
+        abort_unless(! $this->record->isSent() && $this->record->sent_at === null, Response::HTTP_FORBIDDEN);
     }
 
     protected function getHeaderActions(): array
