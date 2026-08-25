@@ -198,7 +198,7 @@ class BroadcastResource extends Resource
                     ->successNotificationMessage(__('broadcast::broadcast.notifications.resend.body')),
 
                 EditAction::make()
-                    ->visible(fn (Broadcast $record): bool => $record->isDraft() && user_can(BroadcastPermission::Edit)),
+                    ->visible(fn (Broadcast $record): bool => ! $record->isSent() && $record->sent_at === null && user_can(BroadcastPermission::Edit)),
 
                 DeleteAction::make()
                     ->visible(fn (Broadcast $record): bool => $record->isDraft() && user_can(BroadcastPermission::Delete)),
