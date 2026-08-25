@@ -32,7 +32,7 @@ class ViewBroadcast extends ViewRecord
     {
         return [
             EditAction::make()
-                ->visible(fn (): bool => $this->record->isDraft() && user_can(BroadcastPermission::Edit)),
+                ->visible(fn (): bool => ! $this->record->isSent() && $this->record->sent_at === null && user_can(BroadcastPermission::Edit)),
 
             DeleteAction::make()
                 ->visible(fn (): bool => $this->record->isDraft() && user_can(BroadcastPermission::Delete)),
