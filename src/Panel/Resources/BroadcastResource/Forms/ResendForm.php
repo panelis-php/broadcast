@@ -20,7 +20,7 @@ class ResendForm
     public static function schema(): array
     {
         $roleModel = get_role_model();
-        $userModel = config('auth.providers.users.model');
+        $userModel = get_user_model();
 
         return [
             Section::make(__('broadcast::broadcast.section.message'))

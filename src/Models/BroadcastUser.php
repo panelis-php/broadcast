@@ -42,7 +42,7 @@ class BroadcastUser extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(config('auth.providers.users.model'));
+        return $this->belongsTo(get_user_model());
     }
 
     public function scopeSubscribed(Builder $query): Builder

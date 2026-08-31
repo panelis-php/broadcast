@@ -77,7 +77,7 @@ class Broadcast extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(
-            config('auth.providers.users.model'),
+            get_user_model(),
             'broadcast_recipients'
         )->wherePivotNotNull('user_id');
     }
