@@ -19,7 +19,7 @@ class ResendForm
      */
     public static function schema(): array
     {
-        $roleModel = config('permission.models.role');
+        $roleModel = get_role_model();
         $userModel = config('auth.providers.users.model');
 
         return [

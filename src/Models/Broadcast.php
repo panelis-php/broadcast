@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 use Panelis\Broadcast\Enums\BroadcastStatus;
 use Panelis\Broadcast\Enums\BroadcastType;
-use Spatie\Permission\Models\Role;
 
 /**
  * @property int $id
@@ -23,7 +22,7 @@ use Spatie\Permission\Models\Role;
  * @property array<int, string> $channels
  * @property string|null $url
  * @property string|null $label
- * @property Collection<int, Role> $roles
+ * @property Collection<int, Model> $roles
  * @property Collection<int, Model> $users
  * @property Carbon|null $send_at
  * @property Carbon|null $sent_at
@@ -67,7 +66,7 @@ class Broadcast extends Model
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(
-            config('permission.models.role', Role::class),
+            get_role_model(),
             'broadcast_recipients'
         )->wherePivotNotNull('role_id');
     }
