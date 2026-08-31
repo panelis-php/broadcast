@@ -10,16 +10,15 @@ use Panelis\Broadcast\Enums\BroadcastStatus;
 use Panelis\Broadcast\Enums\BroadcastType;
 use Panelis\Broadcast\Models\Broadcast;
 use Panelis\Broadcast\Notifications\BroadcastNotification;
-use Spatie\Permission\Models\Role;
 
 /**
  * User with the default role (following the host application's user model).
  */
 function createBroadcastUser(array $attributes = []): Model
 {
-    $role = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+    $role = get_role_model()::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
 
-    $userModel = config('auth.providers.users.model');
+    $userModel = get_user_model();
 
     $user = $userModel::factory()->create($attributes);
 
@@ -45,10 +44,10 @@ function createBroadcast(array $overrides = []): Broadcast
 test('broadcast notifies users on the selected role only', function (): void {
     Notification::fake();
 
-    $role = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+    $role = get_role_model()::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
 
     $member = createBroadcastUser();
-    $outsider = config('auth.providers.users.model')::factory()->create();
+    $outsider = get_user_model()::factory()->create();
 
     $broadcast = createBroadcast();
     $broadcast->roles()->attach($role);
@@ -64,8 +63,8 @@ test('broadcast notifies users on the selected role only', function (): void {
 test('broadcast notifies explicitly selected users only', function (): void {
     Notification::fake();
 
-    $selected = config('auth.providers.users.model')::factory()->create();
-    $other = config('auth.providers.users.model')::factory()->create();
+    $selected = get_user_model()::factory()->create();
+    $other = get_user_model()::factory()->create();
 
     $broadcast = createBroadcast();
     $broadcast->users()->attach($selected);
@@ -81,11 +80,11 @@ test('broadcast notifies explicitly selected users only', function (): void {
 test('broadcast with roles and users sends to the union without duplicates', function (): void {
     Notification::fake();
 
-    $role = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+    $role = get_role_model()::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
 
     $byRole = createBroadcastUser();
-    $byUser = config('auth.providers.users.model')::factory()->create();
-    $outsider = config('auth.providers.users.model')::factory()->create();
+    $byUser = get_user_model()::factory()->create();
+    $outsider = get_user_model()::factory()->create();
 
     $broadcast = createBroadcast();
     $broadcast->roles()->attach($role);
@@ -104,7 +103,7 @@ test('broadcast with no recipients goes to all users', function (): void {
     Notification::fake();
 
     $userA = createBroadcastUser();
-    $userB = config('auth.providers.users.model')::factory()->create();
+    $userB = get_user_model()::factory()->create();
 
     $broadcast = createBroadcast();
 

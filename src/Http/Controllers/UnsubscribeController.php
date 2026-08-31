@@ -15,7 +15,7 @@ class UnsubscribeController
      */
     public function __invoke(string $user): View
     {
-        $userModel = config('auth.providers.users.model');
+        $userModel = get_user_model();
 
         $user = $userModel::query()->findOrFail($user);
 

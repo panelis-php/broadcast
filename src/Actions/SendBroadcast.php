@@ -32,7 +32,7 @@ class SendBroadcast
         $roleIds = $broadcast->roles()->allRelatedIds()->all();
         $userIds = $broadcast->users()->allRelatedIds()->all();
 
-        $userModel = config('auth.providers.users.model');
+        $userModel = get_user_model();
 
         $query = $userModel::query();
 
