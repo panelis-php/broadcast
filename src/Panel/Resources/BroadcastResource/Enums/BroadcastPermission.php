@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Panelis\Broadcast\Panel\Resources\BroadcastResource\Enums;
 
-enum BroadcastPermission: string
+use Filament\Support\Contracts\HasLabel;
+use Illuminate\Support\Str;
+
+enum BroadcastPermission: string implements HasLabel
 {
     case Browse = 'BrowseBroadcast';
 
@@ -13,4 +16,9 @@ enum BroadcastPermission: string
     case Edit = 'EditBroadcast';
 
     case Delete = 'DeleteBroadcast';
+
+    public function getLabel(): string
+    {
+        return __(sprintf('broadcast::permission.name_%s', Str::snake($this->value)));
+    }
 }
