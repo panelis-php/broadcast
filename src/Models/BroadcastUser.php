@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Panelis\Broadcast\Enums\BroadcastChannel;
 use Panelis\Broadcast\Enums\BroadcastSubscriptionStatus;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * @property int $id
@@ -24,6 +26,8 @@ use Panelis\Broadcast\Enums\BroadcastSubscriptionStatus;
  */
 class BroadcastUser extends Model
 {
+    use LogsActivity;
+
     protected $table = 'broadcast_user';
 
     protected $fillable = [
@@ -53,5 +57,19 @@ class BroadcastUser extends Model
     public function scopeUnsubscribed(Builder $query): Builder
     {
         return $query->where('status', BroadcastSubscriptionStatus::Unsubscribed);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('broadcast')
+            ->logOnly(['user_id', 'channel', 'status'])
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges();
+    }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return 'broadcast::activity.subscription_'.$eventName;
     }
 }

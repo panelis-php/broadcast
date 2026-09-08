@@ -70,5 +70,10 @@ class SendBroadcast
             'sent_at' => now(),
             'status' => BroadcastStatus::Sent,
         ]);
+
+        audit('broadcast')
+            ->event('send')
+            ->performedOn($broadcast)
+            ->log('broadcast::activity.send');
     }
 }

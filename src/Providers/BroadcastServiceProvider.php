@@ -16,6 +16,8 @@ class BroadcastServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->syncActivityLoggingSetting();
+
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         $this->loadTranslationsFrom(__DIR__.'/../../lang', self::NAMESPACE);
@@ -28,6 +30,15 @@ class BroadcastServiceProvider extends ServiceProvider
             $this->commands([
                 SendScheduledBroadcasts::class,
             ]);
+        }
+    }
+
+    private function syncActivityLoggingSetting(): void
+    {
+        $settingClass = 'Panelis\\Setting\\Models\\Setting';
+
+        if (class_exists($settingClass) && config()->has('activitylog.enabled')) {
+            config()->set('activitylog.enabled', $settingClass::get('activity.enabled', config('activitylog.enabled')));
         }
     }
 }
