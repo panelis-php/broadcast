@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 use Panelis\Broadcast\Enums\BroadcastStatus;
 use Panelis\Broadcast\Enums\BroadcastType;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * @property int $id
@@ -35,6 +37,7 @@ use Panelis\Broadcast\Enums\BroadcastType;
 class Broadcast extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = [
         'title',
@@ -111,5 +114,19 @@ class Broadcast extends Model
     public function scopePending(Builder $query): Builder
     {
         return $query->where('status', BroadcastStatus::Scheduled);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('broadcast')
+            ->logOnly(['title', 'body', 'type', 'status', 'channels', 'url', 'label', 'send_at', 'sent_at', 'created_by'])
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges();
+    }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return 'broadcast::activity.'.$eventName;
     }
 }
